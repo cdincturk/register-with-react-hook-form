@@ -55,9 +55,10 @@ export default function Register() {
             className={`shadow appearance-none border ${
               errors.firstName ? "border-red-500" : "border-gray-300"
             } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-          />{" "}
-          //Burada ternary operator ile validasyon kontrolünün yanlış olması
-          durumunda input'u kırmızı yaptım.
+          />
+          {/* Burada ternary operator ile validasyon kontrolünün yanlış olması
+          durumunda input'u kırmızı yaptım. */}
+
           {errors.firstName?.type === "required" && (
             <p className="text-red-500">Bu alan zorunludur</p>
           )}
