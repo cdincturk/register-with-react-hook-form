@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"; // Form validasyonlarını uygulayabilmek için kullandım.
-import InputMask from "react-input-mask"; //mask işlemini doğru şekilde yapabilmek için kullandım.
+import InputMask from "react-input-mask"; //Mask işlemini doğru şekilde yapabilmek için kullandım.
 
 export default function Register() {
   const {
