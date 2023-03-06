@@ -6,11 +6,13 @@ import InputMask from "react-input-mask";
 {
   /* Mask işlemini doğru şekilde yapabilmek için kullandım. */
 }
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Register() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   {
@@ -19,25 +21,20 @@ export default function Register() {
 
   const onSubmit = (data) => {
     localStorage.setItem("form-data", JSON.stringify(data));
+    toast.success("Üye Oldunuz!");
+    reset();
   };
   {
-    /* Form doğru bir şekilde submit olduktan sonra formu localStorage'da tutuyorum. stringify ile nesneyi string formatına çevirerek tuttum. */
+    /* Form doğru bir şekilde submit olduktan sonra formu localStorage'da tutuyorum. stringify ile nesneyi string formatına çevirerek tuttum. Son olarak inputların içini boşaltıyorum. */
   }
-
-  const validatePhoneNumber = (value) => {
-    const isValidPhoneNumber =
-      /^(\+90)?\s?\d{3}\s?\d{3}\s?\d{2}\s?\d{2}$/i.test(value);
-    return isValidPhoneNumber || "Lütfen geçerli bir telefon numarası girin";
-  };
-  {
-    /* Burada telefon Numarasını doğru bir şekilde validate edebilmek için regex durumlarını kontrol ettim. */
-  }
-
   return (
     <div className="w-full pt-10 flex justify-center bg-slate-700 min-h-screen">
+      <div>
+        <Toaster />
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 h-full"
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 h-full w-1/3"
       >
         <div className="mb-4">
           <label
@@ -101,7 +98,7 @@ export default function Register() {
             mask="+90 999 999 99 99"
             {...register("phone", {
               required: true,
-              validate: validatePhoneNumber,
+              pattern: /^\+90 \d{3} \d{3} \d{2} \d{2}$/i,
             })}
             className={`shadow appearance-none border ${
               errors.phone ? "border-red-500" : "border-gray-300"
@@ -111,7 +108,10 @@ export default function Register() {
             <p className="text-red-500">Bu alan zorunludur</p>
           )}
           {errors.phone?.type === "pattern" && (
-            <p className="text-red-500">Lütfen geçerli bir telefon giriniz</p>
+            <p className="text-red-500">
+              Lütfen geçerli bir telefon giriniz. Sadece +90 kodlu numaralar
+              kabul edilir.
+            </p>
           )}
         </div>
         <div className="mb-4">
@@ -159,8 +159,8 @@ export default function Register() {
           )}
           {errors.password?.type === "pattern" && (
             <p className="text-red-500">
-              Şifre en az 8 karakter olmalıdır. En az bir büyük harf ve bir sayı
-              içermelidir
+              Şifre en az 8 karakter olmalıdır.<br></br>
+              En az bir büyük harf ve bir sayı içermelidir.
             </p>
           )}
         </div>
