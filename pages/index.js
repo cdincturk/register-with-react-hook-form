@@ -1,22 +1,37 @@
-import { useForm } from "react-hook-form"; // Form validasyonlarını uygulayabilmek için kullandım.
-import InputMask from "react-input-mask"; //Mask işlemini doğru şekilde yapabilmek için kullandım.
+import { useForm } from "react-hook-form";
+{
+  /* Form validasyonlarını uygulayabilmek için kullandım. */
+}
+import InputMask from "react-input-mask";
+{
+  /* Mask işlemini doğru şekilde yapabilmek için kullandım. */
+}
 
 export default function Register() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm(); // Burada useForm hookunu kullanarak formları oluşturdum.
+  } = useForm();
+  {
+    /* Burada useForm hookunu kullanarak formları oluşturdum. */
+  }
 
   const onSubmit = (data) => {
     localStorage.setItem("form-data", JSON.stringify(data));
-  }; //Form doğru bir şekilde submit olduktan sonra formu localStorage'da tutuyorum. stringify ile nesneyi string formatına çevirerek tuttum.
+  };
+  {
+    /* Form doğru bir şekilde submit olduktan sonra formu localStorage'da tutuyorum. stringify ile nesneyi string formatına çevirerek tuttum. */
+  }
 
   const validatePhoneNumber = (value) => {
     const isValidPhoneNumber =
       /^(\+90)?\s?\d{3}\s?\d{3}\s?\d{2}\s?\d{2}$/i.test(value);
     return isValidPhoneNumber || "Lütfen geçerli bir telefon numarası girin";
-  }; // Burada telefon Numarasını doğru bir şekilde validate edebilmek için regex durumlarını kontrol ettim.
+  };
+  {
+    /* Burada telefon Numarasını doğru bir şekilde validate edebilmek için regex durumlarını kontrol ettim. */
+  }
 
   return (
     <div className="w-full pt-10 flex justify-center bg-slate-700 min-h-screen">
@@ -31,9 +46,9 @@ export default function Register() {
           >
             Ad
           </label>
+          {/* firstName inputunun zorunlu olduğunu ve hangi durumlarda validate edebileceğini regex ile belirledim. */}
           <input
             {...register("firstName", {
-              //firstName inputunun zorunlu olduğunu ve hangi durumlarda
               required: true,
               pattern: /^[a-zA-Z]{2,}$/i,
             })}
@@ -80,11 +95,12 @@ export default function Register() {
           >
             Telefon
           </label>
+          {/* Yukarda oluşturduğumuz validate işlemini burada veriyorum. */}
           <InputMask
             mask="+90 999 999 99 99"
             {...register("phone", {
               required: true,
-              validate: validatePhoneNumber, //Yukarda oluşturduğumuz validate işlemini burada veriyorum.
+              validate: validatePhoneNumber,
             })}
             className={`shadow appearance-none border ${
               errors.phone ? "border-red-500" : "border-gray-300"
